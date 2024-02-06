@@ -29,7 +29,6 @@ def check_work(student_token, params, bot, tg_group_id):
                 }
             else:
                 for current_review in student_result['new_attempts']:
-                    time.sleep(5)
                     if current_review['is_negative']:
                         bot.send_message(chat_id=tg_group_id,
                                          text=f'Pаботa ⛔️ *{current_review["lesson_title"]}*\nК сожалению, в работе нашлись ошибки\n[Ссылка на работу]({current_review["lesson_url"]})')
@@ -42,9 +41,9 @@ if __name__ == '__main__':
     env: Env = Env()
     env.read_env()
     request_time = 0
-    token_student = env('STUDENT_TOKEN')
+    token_devman = env('DEVMAN_STUDENT_TOKEN')
     telegram_bot = os.environ.get("TELEGRAMBOT_KEY", "ERROR")
     telegram_chanel = os.environ.get("TELEGRAMBOTGROUP", "ERROR")
     params = {'timestamp': 0, }
     bot = telegram.Bot(token=telegram_bot)
-    check_work(token_student, params, bot, telegram_chanel)
+    check_work(token_devman, params, bot, telegram_chanel)
